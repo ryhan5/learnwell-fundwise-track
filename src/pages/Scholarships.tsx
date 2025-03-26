@@ -3,6 +3,7 @@ import { useState } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import Card from "@/components/ui-components/Card";
 import Badge from "@/components/ui-components/Badge";
+import GovernmentSchemes from "@/components/scholarship/GovernmentSchemes";
 import { motion } from "framer-motion";
 import {
   Search,
@@ -139,65 +140,68 @@ const Scholarships = () => {
           </div>
         </header>
 
-        {/* Scholarships list */}
-        <div className="space-y-6">
-          {filteredScholarships.map((scholarship, index) => (
-            <motion.div
-              key={scholarship.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-            >
-              <Card className="p-6">
-                <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Badge>{scholarship.category}</Badge>
-                      <span className="text-sm text-muted-foreground">
-                        {scholarship.match}% Match
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-semibold mb-1">{scholarship.name}</h3>
-                    <p className="text-muted-foreground">{scholarship.provider}</p>
-                    
-                    <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3">
-                      <span className="inline-flex items-center gap-1 text-sm">
-                        <Award className="w-4 h-4 text-primary" />
-                        {scholarship.amount}
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-sm">
-                        <Calendar className="w-4 h-4 text-yellow-500" />
-                        Due: {scholarship.deadline}
-                      </span>
-                    </div>
-                    
-                    <div className="mt-4">
-                      <p className="text-sm font-medium mb-2">Requirements:</p>
-                      <div className="flex flex-wrap gap-2">
-                        {scholarship.requirements.map((req, idx) => (
-                          <span
-                            key={idx}
-                            className="inline-block px-2 py-1 bg-secondary text-xs rounded-md"
-                          >
-                            {req}
-                          </span>
-                        ))}
+        {/* Private Scholarships list */}
+        <div>
+          <h2 className="text-2xl font-semibold mb-6">Private Scholarships</h2>
+          <div className="space-y-6">
+            {filteredScholarships.map((scholarship, index) => (
+              <motion.div
+                key={scholarship.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <Card className="p-6">
+                  <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Badge>{scholarship.category}</Badge>
+                        <span className="text-sm text-muted-foreground">
+                          {scholarship.match}% Match
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-semibold mb-1">{scholarship.name}</h3>
+                      <p className="text-muted-foreground">{scholarship.provider}</p>
+                      
+                      <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3">
+                        <span className="inline-flex items-center gap-1 text-sm">
+                          <Award className="w-4 h-4 text-primary" />
+                          {scholarship.amount}
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-sm">
+                          <Calendar className="w-4 h-4 text-yellow-500" />
+                          Due: {scholarship.deadline}
+                        </span>
+                      </div>
+                      
+                      <div className="mt-4">
+                        <p className="text-sm font-medium mb-2">Requirements:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {scholarship.requirements.map((req, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-block px-2 py-1 bg-secondary text-xs rounded-md"
+                            >
+                              {req}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
+                    
+                    <div className="flex flex-col sm:flex-row lg:flex-col gap-3 self-start lg:self-center">
+                      <button className="px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors">
+                        Apply Now
+                      </button>
+                      <button className="px-4 py-2 border border-primary/20 text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors inline-flex items-center justify-center gap-1">
+                        View Details <ArrowUpRight className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                  
-                  <div className="flex flex-col sm:flex-row lg:flex-col gap-3 self-start lg:self-center">
-                    <button className="px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors">
-                      Apply Now
-                    </button>
-                    <button className="px-4 py-2 border border-primary/20 text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors inline-flex items-center justify-center gap-1">
-                      View Details <ArrowUpRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {filteredScholarships.length === 0 && (
@@ -209,6 +213,9 @@ const Scholarships = () => {
             </p>
           </div>
         )}
+
+        {/* Government Schemes Section */}
+        <GovernmentSchemes />
       </div>
     </MainLayout>
   );
