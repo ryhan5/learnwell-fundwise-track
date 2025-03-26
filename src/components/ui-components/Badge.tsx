@@ -9,7 +9,8 @@ type BadgeVariant =
   | "danger" 
   | "info" 
   | "primary" 
-  | "accent";
+  | "accent"
+  | "notification";
 
 interface BadgeProps {
   children: React.ReactNode;
@@ -26,7 +27,8 @@ const Badge = ({ children, variant = "default", className }: BadgeProps) => {
     danger: "bg-destructive/10 text-destructive",
     info: "bg-info/10 text-info-foreground",
     primary: "bg-primary text-primary-foreground",
-    accent: "bg-accent text-accent-foreground"
+    accent: "bg-accent text-accent-foreground",
+    notification: "bg-rose-500 text-white min-w-4 h-4 flex items-center justify-center px-1 text-xs font-bold rounded-full"
   };
 
   return (
