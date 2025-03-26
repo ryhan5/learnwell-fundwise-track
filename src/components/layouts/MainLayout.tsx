@@ -3,7 +3,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
-  Graduation, 
+  GraduationCap, 
   Search, 
   BarChart3, 
   Heart, 
@@ -20,7 +20,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const navItems = [
     { name: "Discover", path: "/", icon: Search },
     { name: "Dashboard", path: "/dashboard", icon: BarChart3 },
-    { name: "Scholarships", path: "/scholarships", icon: Graduation },
+    { name: "Scholarships", path: "/scholarships", icon: GraduationCap },
     { name: "Fundraising", path: "/fundraising", icon: Heart },
     { name: "Profile", path: "/profile", icon: User },
   ];
@@ -41,12 +41,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
         initial={{ x: "-100%" }}
-        animate={{ x: isOpen ? 0 : "-100%", x: window.innerWidth >= 1024 ? 0 : (isOpen ? 0 : "-100%") }}
+        animate={{ 
+          x: window.innerWidth >= 1024 ? 0 : (isOpen ? 0 : "-100%") 
+        }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div className="flex items-center justify-between p-6 border-b">
           <Link to="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
-            <Graduation className="w-8 h-8 text-primary" />
+            <GraduationCap className="w-8 h-8 text-primary" />
             <span className="text-xl font-semibold">ScholarMatch</span>
           </Link>
           <button 
@@ -100,7 +102,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               <Menu className="w-6 h-6" />
             </button>
             <Link to="/" className="flex items-center space-x-2">
-              <Graduation className="w-6 h-6 text-primary" />
+              <GraduationCap className="w-6 h-6 text-primary" />
               <span className="text-lg font-semibold">ScholarMatch</span>
             </Link>
             <div className="w-6" />
