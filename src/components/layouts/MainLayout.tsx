@@ -10,8 +10,12 @@ import {
   User, 
   Menu, 
   X,
-  LogOut
+  LogOut,
+  BellRing,
+  MessageCircle,
+  Settings
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -26,18 +30,18 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-gradient-to-br from-background via-background to-secondary/20">
       {/* Mobile menu overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
       
       {/* Sidebar */}
       <motion.aside
-        className={`fixed lg:sticky top-0 h-screen w-[280px] bg-white z-50 shadow-md lg:shadow-none flex flex-col transform transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:sticky top-0 h-screen w-[280px] bg-card z-50 shadow-lg lg:shadow-md flex flex-col transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
         initial={{ x: "-100%" }}
@@ -48,18 +52,20 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       >
         <div className="flex items-center justify-between p-6 border-b">
           <Link to="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
-            <GraduationCap className="w-8 h-8 text-primary" />
-            <span className="text-xl font-semibold">ScholarMatch</span>
+            <div className="bg-primary rounded-lg p-1.5">
+              <GraduationCap className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-bold gradient-text">ScholarMatch</span>
           </Link>
           <button 
-            className="lg:hidden"
+            className="lg:hidden p-1 rounded-full hover:bg-secondary"
             onClick={() => setIsOpen(false)}
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5" />
           </button>
         </div>
         
-        <nav className="flex-1 p-6 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             const Icon = item.icon;
@@ -71,19 +77,33 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                   isActive
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary text-primary-foreground shadow-md"
                     : "hover:bg-secondary"
                 }`}
               >
                 <Icon className={`w-5 h-5 ${isActive ? "text-primary-foreground" : "text-muted-foreground"}`} />
                 <span className={isActive ? "font-medium" : ""}>{item.name}</span>
+                {item.name === "Scholarships" && (
+                  <Badge variant="secondary" className="ml-auto bg-accent/10 text-accent-foreground">3 New</Badge>
+                )}
               </Link>
             );
           })}
         </nav>
         
-        <div className="p-6 border-t">
-          <button className="flex items-center space-x-2 w-full p-3 rounded-lg hover:bg-secondary transition-colors text-muted-foreground">
+        <div className="px-4 py-6 border-t">
+          <div className="flex items-center justify-between mb-4">
+            <button className="p-2 rounded-lg hover:bg-secondary transition-colors">
+              <BellRing className="w-5 h-5 text-muted-foreground" />
+            </button>
+            <button className="p-2 rounded-lg hover:bg-secondary transition-colors">
+              <MessageCircle className="w-5 h-5 text-muted-foreground" />
+            </button>
+            <button className="p-2 rounded-lg hover:bg-secondary transition-colors">
+              <Settings className="w-5 h-5 text-muted-foreground" />
+            </button>
+          </div>
+          <button className="flex items-center justify-center space-x-2 w-full p-3 rounded-lg hover:bg-secondary transition-colors text-muted-foreground bg-secondary/50">
             <LogOut className="w-5 h-5" />
             <span>Sign Out</span>
           </button>
@@ -91,9 +111,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       </motion.aside>
       
       {/* Main content */}
-      <main className="flex-1 bg-background">
+      <main className="flex-1 bg-transparent">
         {/* Mobile header */}
-        <div className="sticky top-0 z-30 bg-background/70 backdrop-blur-md shadow-sm lg:hidden">
+        <div className="sticky top-0 z-30 bg-card/70 backdrop-blur-md shadow-sm lg:hidden">
           <div className="flex items-center justify-between p-4">
             <button 
               onClick={() => setIsOpen(!isOpen)}
@@ -102,8 +122,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               <Menu className="w-6 h-6" />
             </button>
             <Link to="/" className="flex items-center space-x-2">
-              <GraduationCap className="w-6 h-6 text-primary" />
-              <span className="text-lg font-semibold">ScholarMatch</span>
+              <div className="bg-primary rounded-lg p-1">
+                <GraduationCap className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <span className="text-lg font-bold gradient-text">ScholarMatch</span>
             </Link>
             <div className="w-6" />
           </div>

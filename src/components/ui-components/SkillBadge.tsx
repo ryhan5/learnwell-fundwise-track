@@ -11,16 +11,24 @@ interface SkillBadgeProps {
 }
 
 const SkillBadge = ({ name, score, color = "bg-primary", className }: SkillBadgeProps) => {
+  // Determine color based on score
+  const getScoreColor = () => {
+    if (score >= 8) return "bg-success text-success-foreground";
+    if (score >= 6) return "bg-primary text-primary-foreground";
+    if (score >= 4) return "bg-warning text-warning-foreground";
+    return "bg-destructive text-destructive-foreground";
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       className={cn(
-        "flex items-center gap-2 rounded-full py-1 pl-1 pr-3 bg-white shadow-sm border",
+        "flex items-center gap-2 rounded-full py-1 pl-1 pr-3 bg-card shadow-sm border",
         className
       )}
     >
-      <div className={cn("w-6 h-6 rounded-full flex items-center justify-center text-white text-xs", color)}>
+      <div className={cn("w-6 h-6 rounded-full flex items-center justify-center text-white text-xs", color || getScoreColor())}>
         {score}
       </div>
       <span className="text-sm font-medium truncate">{name}</span>
