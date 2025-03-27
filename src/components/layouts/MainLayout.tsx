@@ -21,6 +21,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isDesktopSidebarVisible, setIsDesktopSidebarVisible] = React.useState(true);
   const location = useLocation();
   
   const navItems = [
@@ -45,10 +46,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <motion.aside
         className={`fixed lg:sticky top-0 h-screen w-[280px] bg-card z-50 shadow-lg lg:shadow-md flex flex-col transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+        } ${!isDesktopSidebarVisible ? "lg:translate-x-[-100%]" : ""}`}
         initial={{ x: "-100%" }}
         animate={{ 
-          x: window.innerWidth >= 1024 ? 0 : (isOpen ? 0 : "-100%") 
+          x: window.innerWidth >= 1024 
+              ? (isDesktopSidebarVisible ? 0 : "-100%") 
+              : (isOpen ? 0 : "-100%") 
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
@@ -72,10 +75,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           {/* Sidebar Toggle Button - Desktop */}
           <button 
             className="hidden lg:flex p-1 rounded-full hover:bg-secondary"
-            onClick={() => setIsOpen(prev => !prev)}
+            onClick={() => setIsDesktopSidebarVisible(prev => !prev)}
             aria-label="Toggle Sidebar"
           >
-            <ChevronLeft className={`w-5 h-5 transition-transform duration-300 ${isOpen ? '' : 'rotate-180'}`} />
+            <ChevronLeft className={`w-5 h-5 transition-transform duration-300 ${isDesktopSidebarVisible ? '' : 'rotate-180'}`} />
           </button>
         </div>
         
@@ -144,6 +147,19 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="w-6" />
           </div>
         </div>
+        
+        {/* Desktop header with toggle button when sidebar is closed */}
+        {!isDesktopSidebarVisible && (
+          <div className="hidden lg:flex sticky top-0 z-30 py-2 px-4">
+            <button 
+              onClick={() => setIsDesktopSidebarVisible(true)}
+              className="p-2 rounded-lg hover:bg-secondary transition-colors"
+              aria-label="Open Sidebar"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+        )}
         
         <div className="p-4 sm:p-6 md:p-8 animate-in">
           {children}
