@@ -13,9 +13,11 @@ import {
   LogOut,
   BellRing,
   MessageCircle,
-  Settings
+  Settings,
+  ChevronLeft
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -57,11 +59,23 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
             <span className="text-xl font-bold gradient-text">ScholarMatch</span>
           </Link>
+          
+          {/* Sidebar Close Button - Mobile */}
           <button 
             className="lg:hidden p-1 rounded-full hover:bg-secondary"
             onClick={() => setIsOpen(false)}
+            aria-label="Close Sidebar"
           >
             <X className="w-5 h-5" />
+          </button>
+          
+          {/* Sidebar Toggle Button - Desktop */}
+          <button 
+            className="hidden lg:flex p-1 rounded-full hover:bg-secondary"
+            onClick={() => setIsOpen(prev => !prev)}
+            aria-label="Toggle Sidebar"
+          >
+            <ChevronLeft className={`w-5 h-5 transition-transform duration-300 ${isOpen ? '' : 'rotate-180'}`} />
           </button>
         </div>
         
