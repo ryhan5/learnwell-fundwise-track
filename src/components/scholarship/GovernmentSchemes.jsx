@@ -5,18 +5,8 @@ import Badge from "@/components/ui-components/Badge";
 import { motion } from "framer-motion";
 import { Building2, Users, Award, BookOpen, Landmark, FileCheck } from "lucide-react";
 
-interface SchemeProps {
-  id: number;
-  name: string;
-  provider: string;
-  description: string;
-  eligibility: string[];
-  category: string;
-  icon: React.ElementType;
-}
-
 const GovernmentSchemes = () => {
-  const schemes: SchemeProps[] = [
+  const schemes = [
     {
       id: 1,
       name: "Student Credit Card Scheme",

@@ -3,14 +3,7 @@ import { MoreHorizontal } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface SkillBadgeProps {
-  name: string;
-  score: number;
-  color?: string;
-  className?: string;
-}
-
-const SkillBadge = ({ name, score, color = "bg-primary", className }: SkillBadgeProps) => {
+const SkillBadge = ({ name, score, color = "bg-primary", className }) => {
   // Determine color based on score
   const getScoreColor = () => {
     if (score >= 8) return "bg-success text-success-foreground";

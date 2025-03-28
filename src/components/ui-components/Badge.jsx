@@ -1,24 +1,7 @@
 
 import { cn } from "@/lib/utils";
 
-type BadgeVariant = 
-  | "default" 
-  | "outline" 
-  | "success" 
-  | "warning" 
-  | "danger" 
-  | "info" 
-  | "primary" 
-  | "accent"
-  | "notification";
-
-interface BadgeProps {
-  children: React.ReactNode;
-  variant?: BadgeVariant;
-  className?: string;
-}
-
-const Badge = ({ children, variant = "default", className }: BadgeProps) => {
+const Badge = ({ children, variant = "default", className }) => {
   const variantStyles = {
     default: "bg-primary/10 text-primary",
     outline: "bg-transparent border-[1.5px] border-primary text-primary",

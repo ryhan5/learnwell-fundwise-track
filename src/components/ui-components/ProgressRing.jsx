@@ -2,16 +2,6 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface ProgressRingProps {
-  value: number;
-  maxValue?: number;
-  size?: number;
-  strokeWidth?: number;
-  className?: string;
-  color?: string;
-  children?: React.ReactNode;
-}
-
 const ProgressRing = ({
   value,
   maxValue = 100,
@@ -20,7 +10,7 @@ const ProgressRing = ({
   className,
   color = "stroke-primary",
   children,
-}: ProgressRingProps) => {
+}) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const valuePercentage = Math.min(Math.max(value / maxValue, 0), 1);

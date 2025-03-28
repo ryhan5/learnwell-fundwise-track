@@ -2,15 +2,6 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-interface CardProps {
-  children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
-  highlighted?: boolean;
-  variant?: "default" | "gradient" | "outline" | "glass" | "dashboard";
-  role?: "stat" | "action" | "info" | "default";
-}
-
 const Card = ({ 
   children, 
   className, 
@@ -18,7 +9,7 @@ const Card = ({
   highlighted = false, 
   variant = "default",
   role = "default" 
-}: CardProps) => {
+}) => {
   const variantStyles = {
     default: "bg-card",
     gradient: "bg-gradient-to-br from-primary/5 via-card to-accent/5",
