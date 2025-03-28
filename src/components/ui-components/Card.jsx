@@ -12,7 +12,7 @@ const Card = ({
 }) => {
   const variantStyles = {
     default: "bg-card",
-    gradient: "bg-gradient-to-br from-primary/5 via-card to-accent/5",
+    gradient: "bg-gradient-to-br from-background via-card to-background backdrop-blur-[2px]",
     outline: "bg-background border-2",
     glass: "glass",
     dashboard: "bg-gradient-to-br from-background via-card to-background"
@@ -36,7 +36,7 @@ const Card = ({
         variantStyles[variant],
         roleStyles[role],
         highlighted && "ring-2 ring-primary",
-        onClick && "cursor-pointer hover-scale",
+        onClick && "cursor-pointer hover:shadow-md",
         className
       )}
       onClick={onClick}

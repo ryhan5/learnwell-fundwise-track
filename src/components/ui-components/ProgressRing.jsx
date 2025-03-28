@@ -32,7 +32,7 @@ const ProgressRing = ({
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
-          className={color}
+          className={color === "stroke-gradient-primary" ? "stroke-primary" : color}
           fill="transparent"
           strokeLinecap="round"
           initial={{ strokeDashoffset: circumference }}
@@ -44,6 +44,14 @@ const ProgressRing = ({
             transform: "rotate(-90deg)",
           }}
         />
+        {color === "stroke-gradient-primary" && (
+          <defs>
+            <linearGradient id="gradient-primary" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(var(--primary))" />
+              <stop offset="100%" stopColor="hsl(var(--accent))" />
+            </linearGradient>
+          </defs>
+        )}
       </svg>
       {children && <div className="absolute">{children}</div>}
     </div>
