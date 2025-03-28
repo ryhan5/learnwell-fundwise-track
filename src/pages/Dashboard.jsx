@@ -1,4 +1,3 @@
-
 import MainLayout from "@/components/layouts/MainLayout";
 import Card from "@/components/ui-components/Card";
 import Badge from "@/components/ui-components/Badge";
@@ -85,7 +84,6 @@ const Dashboard = () => {
     { name: "Complete Tasks", icon: CheckSquare, color: "bg-yellow-500/10 text-yellow-500" },
   ];
 
-  // Calculate deadline countdown for closest scholarship
   const closestDeadline = recentScholarships.reduce((prev, current) => 
     (prev.daysLeft < current.daysLeft) ? prev : current);
 
@@ -121,7 +119,6 @@ const Dashboard = () => {
                 </Badge>
               </button>
               
-              {/* Notification dropdown */}
               {showNotifications && (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }} 
@@ -163,7 +160,6 @@ const Dashboard = () => {
           </div>
         </header>
 
-        {/* Quick Actions */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {quickActions.map((action, index) => (
             <motion.div 
@@ -186,7 +182,6 @@ const Dashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Profile Completion */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -206,7 +201,6 @@ const Dashboard = () => {
             </Card>
           </motion.div>
 
-          {/* Scholarship Stats */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -237,7 +231,6 @@ const Dashboard = () => {
             </Card>
           </motion.div>
 
-          {/* Deadline Countdown */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -279,7 +272,6 @@ const Dashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Recent Scholarships */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -350,7 +342,6 @@ const Dashboard = () => {
             </Card>
           </motion.div>
 
-          {/* Skills Assessment */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -383,7 +374,6 @@ const Dashboard = () => {
           </motion.div>
         </div>
 
-        {/* Upcoming Tasks */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
