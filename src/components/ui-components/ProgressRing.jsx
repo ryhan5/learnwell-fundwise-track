@@ -24,7 +24,7 @@ const ProgressRing = ({
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
-          className="stroke-muted"
+          className="stroke-muted/50"
           fill="transparent"
         />
         <motion.circle

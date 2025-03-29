@@ -14,8 +14,8 @@ const Card = ({
     default: "bg-card",
     gradient: "bg-gradient-to-br from-background via-card to-background backdrop-blur-[2px]",
     outline: "bg-background border-2",
-    glass: "glass",
-    dashboard: "bg-gradient-to-br from-background via-card to-background"
+    glass: "backdrop-blur-sm bg-background/80 border border-muted/30",
+    dashboard: "bg-gradient-to-br from-background to-card shadow-md"
   };
 
   const roleStyles = {
