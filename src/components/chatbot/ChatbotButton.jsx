@@ -21,6 +21,11 @@ const ChatbotButton = ({
     setShowChatbot(true);
     console.log("showChatbot set to true");
   };
+  
+  // Handler to close the chatbot
+  const handleCloseChatbot = () => {
+    setShowChatbot(false);
+  };
 
   const variantStyles = {
     default: 'bg-primary hover:bg-primary/90 text-primary-foreground',
@@ -49,15 +54,44 @@ const ChatbotButton = ({
       </button>
 
       {/* This will conditionally render the GeminiSimple component with props */}
-      {showChatbot && <GeminiSimpleController initialOpen={true} />}
+      {showChatbot && (
+        <GeminiSimpleController 
+          initialOpen={true} 
+          onClose={handleCloseChatbot} 
+        />
+      )}
     </>
   );
 };
 
 // A wrapper for GeminiSimple that can be controlled with props
-const GeminiSimpleController = ({ initialOpen = false }) => {
-  // We can add any additional logic here if needed
-  return <GeminiSimple initialOpen={initialOpen} />;
+const GeminiSimpleController = ({ initialOpen = false, onClose }) => {
+  // We'll handle detecting when the chatbot is closed here
+  const [isVisible, setIsVisible] = useState(initialOpen);
+  
+  // When the internal state of GeminiSimple changes to closed,
+  // we want to notify the parent component
+  const handleStateChange = (isOpen) => {
+    setIsVisible(isOpen);
+    if (!isOpen && onClose) {
+      onClose();
+    }
+  };
+  
+  // When this component unmounts, also notify parent
+  React.useEffect(() => {
+    return () => {
+      if (onClose) onClose();
+    };
+  }, [onClose]);
+  
+  // Enhanced version of GeminiSimple with state change notification
+  return (
+    <GeminiSimple 
+      initialOpen={initialOpen} 
+      onStateChange={handleStateChange}
+    />
+  );
 };
 
 export default ChatbotButton; 

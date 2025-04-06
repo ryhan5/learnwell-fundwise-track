@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
@@ -19,9 +19,20 @@ import { Badge } from "@/components/ui/badge";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 const MainLayout = ({ children }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [isDesktopSidebarVisible, setIsDesktopSidebarVisible] = React.useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDesktopSidebarVisible, setIsDesktopSidebarVisible] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
   const location = useLocation();
+  
+  // Listen for window resize to detect if we're on desktop
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   const navItems = [
     { name: "Discover", path: "/", icon: Search },
@@ -43,12 +54,10 @@ const MainLayout = ({ children }) => {
       
       {/* Sidebar */}
       <motion.aside
-        className={`fixed lg:sticky top-0 h-screen w-[280px] bg-card z-50 shadow-lg lg:shadow-md flex flex-col transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        } ${!isDesktopSidebarVisible ? "lg:translate-x-[-100%]" : ""}`}
-        initial={{ x: "-100%" }}
+        className={`fixed lg:sticky top-0 h-screen w-[280px] bg-card z-50 shadow-lg lg:shadow-md flex flex-col`}
+        initial={{ x: isDesktop ? 0 : "-100%" }}
         animate={{ 
-          x: window.innerWidth >= 1024 
+          x: isDesktop 
               ? (isDesktopSidebarVisible ? 0 : "-100%") 
               : (isOpen ? 0 : "-100%") 
         }}
@@ -148,7 +157,7 @@ const MainLayout = ({ children }) => {
         </div>
         
         {/* Desktop header with toggle button when sidebar is closed */}
-        {!isDesktopSidebarVisible && (
+        {!isDesktopSidebarVisible && isDesktop && (
           <div className="hidden lg:flex sticky top-0 z-30 py-2 px-4">
             <button 
               onClick={() => setIsDesktopSidebarVisible(true)}

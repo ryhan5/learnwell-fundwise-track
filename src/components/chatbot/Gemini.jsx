@@ -116,7 +116,7 @@ const Gemini = () => {
   }, [isOpen]);
 
   return (
-    <div className="fixed bottom-4 right-4 z-[60]">
+    <div className="fixed bottom-4 right-4 z-[100]">
       {/* Chat Icon Button */}
       {!isOpen && (
         <motion.button
@@ -129,11 +129,12 @@ const Gemini = () => {
         </motion.button>
       )}
 
-      {/* Chat Interface (AnimatePresence temporarily removed) */}
+      {/* Chat Interface */}
+      <AnimatePresence>
         {isOpen && (
           <motion.div
             className={cn(
-              "bg-card border rounded-lg shadow-xl flex flex-col",
+              "bg-card border rounded-lg shadow-xl flex flex-col overflow-hidden",
               isMinimized ? "w-72 h-14" : "w-80 sm:w-96 h-[500px]"
             )}
             initial={{ opacity: 0, y: 20, scale: 0.8 }}
@@ -211,7 +212,7 @@ const Gemini = () => {
                           {message.role === 'assistant' ? 'LearnLeap AI' : 'You'}
                         </span>
                       </div>
-                      <p className="text-sm">{message.content}</p>
+                      <p className="text-sm whitespace-pre-line">{message.content}</p>
                       
                       {/* File Attachment */}
                       {message.attachment && (
@@ -303,7 +304,7 @@ const Gemini = () => {
             )}
           </motion.div>
         )}
-      {/* </AnimatePresence> */}
+      </AnimatePresence>
     </div>
   );
 };

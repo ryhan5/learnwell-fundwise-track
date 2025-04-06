@@ -22,7 +22,7 @@ import ScholarshipCard from './ScholarshipCard';
 import SkillCard from './SkillCard';
 import SkillAssessment from './SkillAssessment';
 
-const GeminiSimple = ({ initialOpen = false }) => {
+const GeminiSimple = ({ initialOpen = false, onStateChange }) => {
   const [isOpen, setIsOpen] = useState(initialOpen);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: "Hi there! I'm your LearnLeap assistant. How can I help you today?" }
@@ -112,6 +112,13 @@ const GeminiSimple = ({ initialOpen = false }) => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+  
+  // Notify parent component when isOpen state changes
+  useEffect(() => {
+    if (onStateChange) {
+      onStateChange(isOpen);
+    }
+  }, [isOpen, onStateChange]);
 
   const handleSendMessage = async (e) => {
     e?.preventDefault();
@@ -176,7 +183,12 @@ const GeminiSimple = ({ initialOpen = false }) => {
 
   const handleSuggestionClick = (suggestion) => {
     setInput(suggestion);
-    handleSendMessage();
+    handleSendMessage({ preventDefault: () => {} });
+  };
+  
+  // New handler for closing the chatbot
+  const handleClose = () => {
+    setIsOpen(false);
   };
 
   // Helper function to parse rich content from message
@@ -260,7 +272,7 @@ const GeminiSimple = ({ initialOpen = false }) => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-4 right-4 z-[100]">
       {/* Chat Icon Button */}
       {!isOpen && (
         <button
@@ -273,7 +285,7 @@ const GeminiSimple = ({ initialOpen = false }) => {
 
       {/* Chat Interface */}
       {isOpen && (
-        <div className="bg-card border rounded-lg shadow-xl flex flex-col w-80 sm:w-96 h-[500px]">
+        <div className="bg-card border rounded-lg shadow-xl flex flex-col w-80 sm:w-96 h-[500px] overflow-hidden">
           {/* Chat Header */}
           <div className="p-3 border-b bg-gradient-to-r from-background to-card rounded-t-lg flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -284,7 +296,7 @@ const GeminiSimple = ({ initialOpen = false }) => {
             </div>
             <button
               className="p-1 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setIsOpen(false)}
+              onClick={handleClose}
             >
               <X className="w-4 h-4" />
             </button>
@@ -431,8 +443,8 @@ const GeminiSimple = ({ initialOpen = false }) => {
 
           {/* Skill Assessment Panel */}
           {showSkillAssessment && (
-            <div className="absolute inset-0 z-10 bg-background/70 backdrop-blur-sm flex items-center justify-center">
-              <div className="w-5/6 max-h-[90%] overflow-y-auto">
+            <div className="absolute inset-0 z-[110] bg-background/80 backdrop-blur-sm flex items-center justify-center">
+              <div className="w-5/6 max-h-[90%] overflow-y-auto bg-card border rounded-lg shadow-lg p-4">
                 <SkillAssessment onComplete={handleAssessmentComplete} />
               </div>
             </div>
