@@ -1,4 +1,3 @@
-
 import MainLayout from "@/components/layouts/MainLayout";
 import Card from "@/components/ui-components/Card";
 import Badge from "@/components/ui-components/Badge";
@@ -28,6 +27,8 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import ChatbotButton from "@/components/chatbot/ChatbotButton";
+import ContextualHelp from "@/components/chatbot/ContextualHelp";
 
 const Dashboard = () => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -120,6 +121,14 @@ const Dashboard = () => {
     show: { opacity: 1, y: 0 }
   };
 
+  // Contextual help suggestions specifically for Dashboard
+  const helpSuggestions = [
+    "How can I improve my profile completion?",
+    "What do my scholarship stats mean?",
+    "How to prepare for upcoming deadlines?",
+    "What tasks should I focus on now?",
+  ];
+
   return (
     <MainLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -140,6 +149,8 @@ const Dashboard = () => {
               <p className="text-muted-foreground mt-1">Track your scholarships and educational opportunities</p>
             </div>
             <div className="flex gap-3 self-end md:self-auto">
+              <ChatbotButton variant="outline" withLabel label="Ask AI" />
+              
               <div className="relative">
                 <button 
                   className="bg-background hover:bg-secondary text-foreground font-medium px-3 py-2 rounded-lg inline-flex items-center gap-1 transition-colors border shadow-sm"
@@ -486,6 +497,15 @@ const Dashboard = () => {
                 </button>
               </div>
             </Card>
+          </motion.div>
+
+          {/* Contextual Help */}
+          <motion.div variants={itemVariants} className="lg:col-span-1">
+            <ContextualHelp 
+              title="AI Scholarship Assistant" 
+              suggestions={helpSuggestions} 
+              context="dashboard"
+            />
           </motion.div>
         </motion.div>
 

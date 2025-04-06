@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import MainLayout from "@/components/layouts/MainLayout";
 import { ArrowRight, Search, Sparkles, GraduationCap, Users, Award } from "lucide-react";
@@ -63,7 +62,7 @@ const Index = () => {
               viewport={{ once: true }}
               className="text-3xl font-bold tracking-tight sm:text-4xl"
             >
-              How ScholarMatch Works
+              How LearnLeap Works
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
@@ -131,7 +130,7 @@ const Index = () => {
             </h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
               Join thousands of students who have found financial support and achieved their
-              educational goals through ScholarMatch.
+              educational goals through LearnLeap.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}

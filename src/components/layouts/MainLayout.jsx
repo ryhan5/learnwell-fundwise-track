@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -60,7 +59,7 @@ const MainLayout = ({ children }) => {
             <div className="bg-primary rounded-lg p-1.5">
               <GraduationCap className="w-6 h-6 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold gradient-text">ScholarMatch</span>
+            <span className="text-xl font-bold gradient-text">LearnLeap</span>
           </Link>
           
           {/* Sidebar Close Button - Mobile */}
@@ -142,7 +141,7 @@ const MainLayout = ({ children }) => {
               <div className="bg-primary rounded-lg p-1">
                 <GraduationCap className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-lg font-bold gradient-text">ScholarMatch</span>
+              <span className="text-lg font-bold gradient-text">LearnLeap</span>
             </Link>
             <div className="w-6" />
           </div>
